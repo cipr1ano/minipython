@@ -1,6 +1,6 @@
 lexer grammar PythonLexer;
 
-// 1. Definições de Tokens - Palavras-chave (keywords)
+// 1. Palavras-chave (não usadas no parser atual, mas mantidas para futuras extensões)
 DEF     : 'def';
 CLASS   : 'class';
 IF      : 'if';
@@ -18,15 +18,12 @@ TRUE    : 'True';
 FALSE   : 'False';
 NONE    : 'None';
 
-// 2. Definições de Tokens - Operadores
+// 2. Operadores usados no parser
 PLUS    : '+';
 MINUS   : '-';
 TIMES   : '*';
 DIVIDE  : '/';
 MOD     : '%';
-AND_OP  : 'and';
-OR_OP   : 'or';
-NOT_OP  : 'not';
 EQUAL   : '==';
 ASSIGN  : '=';
 LT      : '<';
@@ -35,30 +32,34 @@ LE      : '<=';
 GE      : '>=';
 NE      : '!=';
 
-// 3. Definições de Tokens - Literais e identificadores
-NUMBER  : [0-9]+;
-STRING  : '"' ( ESC_SEQ | . )*? '"'
-        | '\'' ( ESC_SEQ | . )*? '\'';
+// 3. Literais e identificadores
+NUMBER
+    : [0-9]+ ('.' [0-9]*)?      // 5 ou 5. ou 5.0
+    | '.' [0-9]+               // .5
+    ;
+
+STRING
+    : '"'  ( ~["\\\r\n])* '"'
+    | '\'' ( ~['\\\r\n])* '\''
+    ;
+
 ID      : [a-zA-Z_][a-zA-Z_0-9]*;
 
-// 4. Definições de Tokens - Outros caracteres
-LPAREN  : '(';
-RPAREN  : ')';
-LBRACE  : '{';
-RBRACE  : '}';
-LBRACKET: '[';
-RBRACKET: ']';
-COMMA   : ',';
-DOT     : '.';
-COLON   : ':';
-SEMI    : ';';
-NEWLINE : '\r'? '\n' { skip(); };
+// 4. Delimitadores (usados no parser: parênteses)
+LPAREN     : '(';
+RPAREN     : ')';
+LBRACKET   : '[';
+RBRACKET   : ']';
+COMMA      : ',';
+DOT        : '.';
+COLON      : ':';
+SEMI       : ';';
 
-// 5. Definições de Tokens - Espaços em branco (WS) e Comentários
-WS      : [ \t]+ -> skip;  // Ignora espaços em branco
-COMMENT : '#' ~[\r\n]* -> skip;  // Ignora comentários
-LINE_JOIN : '\\\r'? '\n' -> skip;  // Para quebra de linha com continuação
+// 5. Outros tokens
+NEWLINE    : '\r'? '\n';
+WS         : [ \t]+ -> skip;
+COMMENT    : '#' ~[\r\n]* -> skip;
+LINE_JOIN  : '\\\r'? '\n' -> skip;
 
-// 6. Definições de Tokens - Letras e Dígitos (para outros casos)
-DIGIT   : [0-9];
-LETTER  : [a-zA-Z_];
+// 6. Escape para strings
+// fragment ESC_SEQ : '\\' [btnr"'\"\\];
