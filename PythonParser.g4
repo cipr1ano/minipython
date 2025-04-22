@@ -11,7 +11,7 @@ query: 'True' | 'False'
     | query op=(AND | OR | NOT) query
     | '('query')'
     | expr ('<' | '>' | '<=' | '>=' | '==' | '!=')
-
+    ;
 // Definição de expressões suportadas
 expr
     : ID                                           #idExpr
