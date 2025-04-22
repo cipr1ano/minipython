@@ -7,6 +7,8 @@ code: stat* EOF;
 
 // Cada linha de código é uma expressão seguida de quebra de linha
 stat: expr NEWLINE?;
+query: valoresBooleanos
+    | query op=(AND | OR | NOT) query
 
 // Definição de expressões suportadas
 expr
