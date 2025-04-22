@@ -8,6 +8,7 @@ code: stat* EOF;
 // Cada linha de código é uma expressão seguida de quebra de linha
 stat: (expr | query) NEWLINE?;
 query: 'True' | 'False'
+    | NOT query
     | query op=(AND | OR | NOT) query
     | '('query')'
     | expr ('<' | '>' | '<=' | '>=' | '==' | '!=')
