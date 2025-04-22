@@ -6,7 +6,7 @@ options { tokenVocab=PythonLexer; }
 code: stat* EOF;
 
 // Cada linha de código é uma expressão seguida de quebra de linha
-stat: expr NEWLINE?;
+stat: (expr | query) NEWLINE?;
 query: 'True' | 'False'
     | query op=(AND | OR | NOT) query
     | '('query')'
