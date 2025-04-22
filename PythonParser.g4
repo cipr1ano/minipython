@@ -9,9 +9,9 @@ code: stat* EOF;
 stat: (expr | query) NEWLINE?;
 query: 'True' | 'False'
     | NOT query
-    | query op=(AND | OR | NOT) query
+    | query op=(AND | OR) query
     | '('query')'
-    | expr ('<' | '>' | '<=' | '>=' | '==' | '!=')
+    | expr ('<' | '>' | '<=' | '>=' | '==' | '!=') expr
     ;
 // Definição de expressões suportadas
 expr
