@@ -9,7 +9,7 @@ code: stat* EOF;
 stat: expr NEWLINE?;
 query: 'True' | 'False'
     | query op=(AND | OR | NOT) query
-    | "("query")"
+    | '('query')'
     | expr ('<' | '>' | '<=' | '>=' | '==' | '!=')
 
 // Definição de expressões suportadas
