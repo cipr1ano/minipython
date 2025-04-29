@@ -6,12 +6,15 @@ options { tokenVocab=PythonLexer; }
 code: stat* EOF;
 
 // Cada linha de código é uma expressão seguida de quebra de linha
-stat: (expr | query) NEWLINE?;
+stat: (expr | query | conditional) NEWLINE?;
 query: 'True' | 'False'
     | NOT query
     | query op=(AND | OR) query
     | '('query')'
     | expr ('<' | '>' | '<=' | '>=' | '==' | '!=') expr
+    ;
+
+conditional: 'if' query ':' NEWLINE? stat ('elif' query ':' NEWLINE? stat)* ('else' ':' NEWLINE? stat)?
     ;
 // Definição de expressões suportadas
 expr
