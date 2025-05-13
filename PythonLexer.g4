@@ -22,6 +22,7 @@ NONE    : 'None';
 PLUS    : '+';
 MINUS   : '-';
 TIMES   : '*';
+POWER   : '**';
 DIVIDE  : '/';
 MOD     : '%';
 EQUAL   : '==';
