@@ -6,7 +6,7 @@ options { tokenVocab=PythonLexer; }
 code: stat* EOF;
 
 // Cada linha de código é uma expressão seguida de quebra de linha
-stat: (expr | query | conditional | function | function_call) NEWLINE?;
+stat: (expr | query | conditional | function | function_call | while | for) NEWLINE?;
 query: 'True' | 'False'
     | NOT query
     | query op=(AND | OR) query
@@ -23,6 +23,11 @@ function: 'def' ID '(' (ID | ID (',' ID)*) ')' ':' NEWLINE? 'return' expr? NEWLI
 function_call: ID '(' (expr | expr ',' expr)?')'
     ;
     
+while: 'while' query ':' NEWLINE? stat
+    ;
+
+for: 'for' ID 'in' 'range' '(' expr (',' expr)? (',' expr)? ')' ':' NEWLINE? stat
+    ;
     
 // Definição de expressões suportadas
 expr: ID
