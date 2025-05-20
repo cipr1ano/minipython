@@ -17,6 +17,7 @@ NOT     : 'not';
 TRUE    : 'True';
 FALSE   : 'False';
 NONE    : 'None';
+RANGE   : 'range';
 
 // 2. Operadores usados no parser
 PLUS    : '+';
