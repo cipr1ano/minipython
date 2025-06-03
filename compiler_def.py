@@ -52,33 +52,38 @@ class Compiler(PythonParserVisitor):
 
     # Visit a parse tree produced by PythonParser#expr.
     def visitExpr(self, ctx:PythonParser.ExprContext):
-        if self.visitChildren(ctx)
+        if self.visitChildren(ctx) is not None:
+            return self.visitChildren(ctx)
 
-        context = ctx.getText
+        context = ctx.getText()
         OPERATORS = ['+', '-', '*', '/', '**', '%']
 
-        if context.isidenfier():
-        class Compiler(PythonParserVisitor):
-            def visitExpr(self, ctx: PythonParser.ExprContext):
-                if context.isidentifier():
-                    return self.visitID(ctx)
+        if context.isidentifier():
+            #É um ID
+            return self.visitID(ctx)
 
-                elif context[0].isnumeric():
-                    #É um inteiro
-                    return self.visitINT(ctx)
+        elif context[0].isnumeric():
+            #É um inteiro
+            return self.visitINT(ctx)
 
-                elif context == "None"
-                    #É um None
-                    return self.visitNone(ctx)
+        elif context == "None":
+            #É um None
+            return self.visitNone(ctx)
 
-                elif any(op is contxt for op in OPERATORS):
-                    return self.visitOperations(ctx)
-                
+        elif any(op is contxt for op in OPERATORS):
+            return self.visitOperations(ctx)
+        
 
         return self.visitChildren(ctx)
 
     def visitID(self, ctx:PythonParser.ExprContext):
         return self.visitChildren(ctx)
+
+    def visitINT(self, ctx: PythonParser.ExprContext):
+        return int(ctx.getText())
+
+    def visitNone(self, ctx PythonParser.ExprContext):
+        return None
 
 
     def visitOperations(self, ctx:PythonParser.ExprContext):
