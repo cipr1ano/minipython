@@ -5,9 +5,13 @@ from PythonLexer import PythonLexer as Lexer
 from PythonParser import PythonParser as Parser
 from compiler_def import Compiler
 
+SOURCE_CODE = '_sourceCode.txt'
+
 def main(argv):
     # Read script file
-    input_stream = FileStream(argv[1])
+    input_stream = FileStream(
+        argv[1]
+        if len(argv) > 1 else SOURCE_CODE)
 
     # Pass script file to lexer
     lexer = Lexer(input_stream)
